@@ -94,10 +94,15 @@ function searchColumsDataTable(datatable, column_search = [], column_date = [], 
 
         input.setAttribute('placeholder', window.__trans('enterKeyword'));
 
+        var searchVal = column.search();
+        if (searchVal !== undefined && searchVal !== null && searchVal !== '') {
+            $(input).val(searchVal);
+        }
+
         let timeout = null; // (debounce) Khai báo timeout ở ngoài sự kiện
         $(input)
             .appendTo($(column.footer()).empty())
-            .on("input", function () {
+            .on("change input", function () {
                 clearTimeout(timeout); // Xóa timeout trước đó (nếu có)
 
                 timeout = setTimeout(() => {

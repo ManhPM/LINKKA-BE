@@ -106,6 +106,24 @@
                     var section = document.getElementById('branch-fields');
                     if (!section) return;
                     section.style.display = shouldShow ? '' : 'none';
+
+                    var inputs = section.querySelectorAll('input, select, textarea');
+                    inputs.forEach(function(input) {
+                        if (shouldShow) {
+                            input.disabled = false;
+                            if (input.getAttribute('data-was-required') === 'true') {
+                                input.setAttribute('required', 'required');
+                                input.required = true;
+                            }
+                        } else {
+                            if (input.hasAttribute('required') || input.required) {
+                                input.setAttribute('data-was-required', 'true');
+                                input.removeAttribute('required');
+                                input.required = false;
+                            }
+                            input.disabled = true;
+                        }
+                    });
                 }
 
                 document.addEventListener('change', function(e) {

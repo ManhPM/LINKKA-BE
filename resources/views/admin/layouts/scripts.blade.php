@@ -90,3 +90,17 @@
     })();
 </script>
 @stack('custom-js')
+
+
+<script>
+    if (window.jQuery && $.fn && $.fn.dataTable) {
+        $.fn.dataTable.ext.errMode = function (settings, helpPage, message) {
+            console.error('DataTables Exception:', message);
+            if (typeof window.showToastify === 'function') {
+                window.showToastify('error', 'Lỗi DataTables', message);
+            } else if (typeof window.msgError === 'function') {
+                window.msgError(message);
+            }
+        };
+    }
+</script>
